@@ -51,6 +51,10 @@ func (c *Client) DeclareExchange(name, kind string) error {
 }
 
 func (c *Client) Publish(ctx context.Context, exchange, routingKey string, body interface{}) error {
+	if c.channel == nil {
+		return fmt.Errorf("cannot publish: rabbitmq channel is not initialized")
+	}
+
 	data, err := json.Marshal(body)
 	if err != nil {
 		return fmt.Errorf("failed to marshal event body: %w", err)

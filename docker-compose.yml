@@ -1,0 +1,16 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: analytics_messaging
+    volumes:
+      - .:/app
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: analytics_messaging_tests
+    volumes:
+      - .:/app

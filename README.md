@@ -17,6 +17,19 @@ go get [github.com/paulovf/analytics-messaging](https://github.com/paulovf/analy
 To run the unit tests in an isolated environment, you can use the provided Dockerfile:
 
 ```bash
-docker build -t analytics-messaging-tests -f Dockerfile.test .
-docker run --rm analytics-messaging-tests
+docker compose build
+docker compose run --rm tests bash
+```
+
+Inner tests docker container run this comands:
+
+```bash
+go get github.com/stretchr/testify/assert
+go mod tidy
+```
+
+Run tests
+
+```bash
+go test -v ./...
 ```
