@@ -29,11 +29,12 @@ jobs:
     steps:
       - name: Check Branch Name Syntax
         run: |
-          BRANCH_NAME="${{ github.head_ref }}"
-          REGEX="^(feat|feature|fix|hotfix|qa)/[a-zA-Z0-9_-]+$"
-          if [[ ! $BRANCH_NAME =~ $REGEX ]]; then
+          BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
+
+          REGEX_BRANCH="^qa$|^(feat|fix|hotfix|feature|qa)[\/-].+$"
+          if [[ ! $BRANCH_NAME =~ $REGEX_BRANCH ]]; then
             echo "Error: Branch name '$BRANCH_NAME' is invalid."
-            echo "Must match convention: (feat|feature|fix|hotfix|qa)/description"
+            echo "The branch name must be exactly 'qa' or start with: feat/, feature/, fix/, hotfix/, or qa/"
             exit 1
           fi
           echo "Branch name is valid."
